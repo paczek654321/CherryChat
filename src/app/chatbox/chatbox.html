@@ -1,8 +1,5 @@
-<ng-container *ngFor="let message of messages">
-	<p *ngIf="!message.showThinking" [ngClass]="[message.role]" [innerHTML]="message.content | parseContent">
-		{{ message.content }}
-	</p>
-	<p *ngIf="message.showThinking" [ngClass]="[message.role, 'thinking']" [innerHTML]="message.thinking ?? '' | parseContent">
-		{{ message.thinking }}
-	</p>
-</ng-container>
+<div *ngFor="let message of messages" [ngClass]="[message.role, message.showThinking ? 'thinking' : '']">
+	<app-pngimage-display [images]="message.images" max_width="100%" />
+	<div *ngIf="!message.showThinking" [innerHTML]="message.content | parseContent"></div>
+	<div *ngIf="message.showThinking" [innerHTML]="message.thinking ?? '' | parseContent"></div>
+</div>

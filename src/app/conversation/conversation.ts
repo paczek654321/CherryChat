@@ -3,9 +3,12 @@ import { FormsModule } from '@angular/forms';
 import ollama, {Message} from "ollama/browser"
 import { CommonModule } from '@angular/common';
 import { Chatbox } from '../chatbox/chatbox';
+import { PNGImageDisplay } from '../pngimage-display/pngimage-display';
 
 export interface ChatMessage extends Message
 {
+	images?: string[] | undefined
+
 	showThinking?: boolean
 }
 
@@ -34,7 +37,7 @@ const tools =
 
 @Component({
 	selector: 'app-conversation',
-	imports: [FormsModule, CommonModule, Chatbox],
+	imports: [FormsModule, CommonModule, Chatbox, PNGImageDisplay],
 	templateUrl: './conversation.html',
 	styleUrl: './conversation.scss',
 })
@@ -88,10 +91,39 @@ export class Conversation
 	{
 		ollama.abort()
 		this.messages.push({role: "system", content: "Generation aborted by user"})
+		this.generating = false
 	}
-	OnImageSelected(event: Event)
+	async OnImageSelected(event: Event)
 	{
-		console.log(event)
+		const files = (event.target as HTMLInputElement).files
+		if (!files || files.length < 1) { return; }
+
+		const reader = new FileReader();
+		await new Promise((resolve, reject) =>
+		{
+			reader.onloadend = resolve
+			reader.onerror = reject
+			reader.readAsDataURL(files[0]);
+		})
+
+		const img = new Image()
+		await new Promise((resolve, reject) =>
+		{
+			img.onload = resolve
+			img.onerror = reject
+			img.src = reader.result?.toString() ?? ""
+		})
+
+		const canvas = document.createElement("canvas");
+		canvas.width = img.width;
+		canvas.height = img.height;
+
+		const ctx = canvas.getContext("2d");
+		ctx?.drawImage(img, 0, 0);
+
+		this.currentMessage.images ??= [] as string[]
+		this.currentMessage.images.push(canvas.toDataURL("image/png").split(",")[1])
+		this.cd.detectChanges()
 	}
 	DetectEnterPress(event: KeyboardEvent)
 	{

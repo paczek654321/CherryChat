@@ -1,6 +1,8 @@
 <app-chatbox [messages]="messages" />
 	<div id="prompt" class="felx-col">
-		<div id="prompt_images" class="flex-row"></div>
+		<div id="prompt_images" class="flex-row">
+			<app-pngimage-display [images]="currentMessage.images" max_width="30%" />
+		</div>
 		<textarea [(ngModel)]="currentMessage.content" (keydown)="DetectEnterPress($event)"></textarea>
 		<div id="prompt_toolbar">
 			<input #fileInput (change)="OnImageSelected($event)" type="file" accept="image/*" style="display:none" />

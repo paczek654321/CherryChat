@@ -7,11 +7,6 @@
 	justify-content: start;
 	overflow-y: auto;
 
-	canvas
-	{
-		max-width: 100%;
-	}
-
 	>*
 	{
 		background: $hl-bg;
@@ -19,15 +14,21 @@
 		max-width: 50%;
 		padding: 0.5em;
 		border-radius: 0.5em;
-		overflow-y: auto;
-		::ng-deep >:first-child
+		overflow-x: auto;
+		min-height: fit-content;
+		margin-block: 1em;
+		
+		>*
 		{
-			margin-top: 0;
-		}
+			&, ::ng-deep >:first-child
+			{
+				margin-top: 0;
+			}
 
-		::ng-deep >:last-child
-		{
-			margin-bottom: 0;
+			&, ::ng-deep >:last-child
+			{
+				margin-bottom: 0;
+			}
 		}
 
 		&.thinking, &.system
