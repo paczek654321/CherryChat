@@ -1,7 +1,7 @@
 <app-chatbox [messages]="messages" />
 	<div id="prompt" class="felx-col">
-		<div id="prompt_images" class="flex-row">
-			<app-pngimage-display [images]="currentMessage.images" max_width="30%" />
+		<div id="prompt_images">
+			<app-pngimage-display [images]="currentMessage.images" />
 		</div>
 		<textarea [(ngModel)]="currentMessage.content" (keydown)="DetectEnterPress($event)"></textarea>
 		<div id="prompt_toolbar">

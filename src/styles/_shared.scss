@@ -13,11 +13,9 @@ $font-color: white;
 	display: flex;
 	flex-direction: column;
 }
-flex-col { @include flex-col(); }
 
 @mixin flex-row
 {
 	display: flex;
 	flex-direction: row;
 }
-flex-row { @include flex-row(); }

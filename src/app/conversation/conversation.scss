@@ -29,10 +29,13 @@
 		box-sizing: border-box;
 		padding-top: 1em;
 	}
-	img
-	{
-		max-width: 30%;
-	}
+}
+#prompt_images
+{
+	@include flex-row();
+	align-items: end;
+	overflow-x: auto;
+	margin-bottom: 1em;
 }
 #prompt_toolbar
 {

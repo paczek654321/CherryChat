@@ -1,0 +1,12 @@
+@use 'shared' as *;
+
+:host
+{
+	@include flex-row();
+	align-items: end;
+
+	*
+	{
+		margin: 0.5em;
+	}
+}

@@ -98,31 +98,42 @@ export class Conversation
 		const files = (event.target as HTMLInputElement).files
 		if (!files || files.length < 1) { return; }
 
-		const reader = new FileReader();
-		await new Promise((resolve, reject) =>
-		{
-			reader.onloadend = resolve
-			reader.onerror = reject
-			reader.readAsDataURL(files[0]);
-		})
-
 		const img = new Image()
-		await new Promise((resolve, reject) =>
+		try
 		{
-			img.onload = resolve
-			img.onerror = reject
-			img.src = reader.result?.toString() ?? ""
-		})
+			const reader = new FileReader();
+			await new Promise((resolve, reject) =>
+			{
+				reader.onloadend = resolve
+				reader.onerror = reject
+				reader.readAsDataURL(files[0]);
+			})
+			await new Promise((resolve, reject) =>
+			{
+				img.onload = resolve
+				img.onerror = reject
+				img.src = reader.result?.toString() ?? ""
+			})
+		}
+		catch(err)
+		{
+			console.error("Failed to process image:", err)
+			return
+		}
 
 		const canvas = document.createElement("canvas");
-		canvas.width = img.width;
-		canvas.height = img.height;
+		
+		const scale = 520.0/Math.max(img.width, img.height)
+
+		canvas.width = img.width*scale;
+		canvas.height = img.height*scale;
 
 		const ctx = canvas.getContext("2d");
-		ctx?.drawImage(img, 0, 0);
+		ctx?.drawImage(img, 0, 0, canvas.width, canvas.height);
 
 		this.currentMessage.images ??= [] as string[]
 		this.currentMessage.images.push(canvas.toDataURL("image/png").split(",")[1])
+
 		this.cd.detectChanges()
 	}
 	DetectEnterPress(event: KeyboardEvent)
