@@ -1,0 +1,8 @@
+<ng-container *ngFor="let message of messages">
+	<p *ngIf="!message.showThinking" [ngClass]="[message.role]" [innerHTML]="message.content | parseContent">
+		{{ message.content }}
+	</p>
+	<p *ngIf="message.showThinking" [ngClass]="[message.role, 'thinking']" [innerHTML]="message.thinking ?? '' | parseContent">
+		{{ message.thinking }}
+	</p>
+</ng-container>

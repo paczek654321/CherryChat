@@ -1,0 +1,11 @@
+<app-chatbox [messages]="messages" />
+	<div id="prompt" class="felx-col">
+		<div id="prompt_images" class="flex-row"></div>
+		<textarea [(ngModel)]="currentMessage.content" (keydown)="DetectEnterPress($event)"></textarea>
+		<div id="prompt_toolbar">
+			<input #fileInput (change)="OnImageSelected($event)" type="file" accept="image/*" style="display:none" />
+			<button (click)="fileInput.click()">Add Image</button>
+			<button *ngIf="!generating" (click)="Submit()">Submit</button>
+			<button *ngIf="generating" (click)="Abort()">Abort</button>
+		</div>
+	</div>

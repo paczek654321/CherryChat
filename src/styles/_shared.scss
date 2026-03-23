@@ -1,0 +1,23 @@
+@use "sass:color";
+
+$bg-color: #232332;
+$fg-color: #272738;
+$hl-color: rgb(104, 17, 68);
+$hl-color-light: color.scale($hl-color, $lightness: 15%);
+$hl-bg: linear-gradient(75deg, $hl-color, $hl-color-light);
+$grayed-out-color: gray;
+$font-color: white;
+
+@mixin flex-col
+{
+	display: flex;
+	flex-direction: column;
+}
+flex-col { @include flex-col(); }
+
+@mixin flex-row
+{
+	display: flex;
+	flex-direction: row;
+}
+flex-row { @include flex-row(); }

@@ -1,0 +1,71 @@
+@use 'shared' as *;
+
+:host
+{
+	@include flex-col();
+
+	justify-content: space-between;
+
+	box-sizing: border-box;
+
+	width: 50%;
+	height: 100vh;
+	background-color: $fg-color;
+
+	padding: 1%;
+	padding-right: 0;
+
+	>*
+	{
+		padding-right: 1%;
+	}
+}
+#prompt
+{
+	@include flex-col();
+
+	>div
+	{
+		box-sizing: border-box;
+		padding-top: 1em;
+	}
+	canvas
+	{
+		max-width: 30%;
+	}
+}
+#prompt_toolbar
+{
+	@include flex-row();
+	width: 100%;
+	justify-content: space-between;
+}
+textarea
+{
+	resize: none;
+	background-color: $fg-color;
+	border: solid $hl-color 2px;
+	padding: 10px;
+	border-radius: 10px;
+	font-size: 1rem;
+	field-sizing: content;
+	min-height: 2em;
+	flex: 1;
+}
+textarea:focus
+{
+	outline: none;
+}
+button
+{
+	border: none;
+	background: $hl-bg;
+	padding: 0.5em;
+	border-radius: 0.5em;
+}
+code
+{
+	word-wrap: break-word;
+	overflow-wrap: break-word;
+	white-space: pre-wrap;
+}

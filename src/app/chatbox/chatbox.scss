@@ -1,0 +1,50 @@
+@use 'shared' as *;
+
+:host
+{
+	@include flex-col();
+
+	justify-content: start;
+	overflow-y: auto;
+
+	canvas
+	{
+		max-width: 100%;
+	}
+
+	>*
+	{
+		background: $hl-bg;
+		width: fit-content;
+		max-width: 50%;
+		padding: 0.5em;
+		border-radius: 0.5em;
+		overflow-y: auto;
+		::ng-deep >:first-child
+		{
+			margin-top: 0;
+		}
+
+		::ng-deep >:last-child
+		{
+			margin-bottom: 0;
+		}
+
+		&.thinking, &.system
+		{
+			background: $bg-color;
+			border: solid $hl-color 2px;
+			color: $grayed-out-color
+		}
+
+		&.assistant
+		{
+			margin-left: auto;
+		}
+
+		&.system
+		{
+			margin-inline: auto;
+		}
+	}
+}

@@ -1,0 +1,29 @@
+@use 'shared' as *;
+
+html, body
+{
+	padding: 0;
+	margin: 0;
+}
+*
+{
+	color: $font-color;
+}
+::-webkit-scrollbar
+{
+	width: 0.5em;
+	height: 0.5em;
+}
+::-webkit-scrollbar-track
+{
+	background: none
+}
+::-webkit-scrollbar-thumb
+{
+	background-color: $hl-color; 
+	border-radius: 1em;
+}
+::-webkit-scrollbar-thumb:hover
+{
+	background: $hl-bg; 
+}
